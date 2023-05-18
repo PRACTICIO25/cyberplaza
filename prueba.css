@@ -1,0 +1,76 @@
+@media (max-width: 400px) {
+    .instrucciones {
+        margin-bottom: 3%;
+        font-size: 10pt;
+        height: 30vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-evenly;
+    }
+
+    .instrucciones__parrafo {
+        width: 90%;
+    }
+
+    .juego {
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-evenly;
+        background-color: transparent;
+    }
+
+    .juego__play {
+        width: 96%;
+        height: 70vh;
+    }
+    
+    .juego__informacion {
+        width: 98%;
+        height: 36%;
+        display: grid;
+        grid-template-columns: repeat(3,1fr);
+        justify-items: center;
+        color: white;
+        gap: 1%;
+    }
+
+    .juego__imgContenedor {
+        height: 90%;
+    }
+
+    .juego__tiempo {
+        width: 96%;
+        height: 96%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    
+    .juego__otros {
+        width: 96%;
+        height: 96%;
+        background-color: var(--color-secciones);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        font-size: 18pt;
+        font-weight: bold;
+    }
+
+    .contBtns {
+        grid-row-start: 2;
+        grid-column-start: 2;
+        grid-column-end: 4;
+        flex-direction: row;
+        justify-content: space-evenly;
+        background-color: transparent;
+        padding: 0;
+        width: 100%;
+    }
+
+    .juego__otrosTitulo {
+        font-size: 14pt;
+    }
+}
