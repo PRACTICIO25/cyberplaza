@@ -1,2 +1,0 @@
-# cyberplaza
-Practica
