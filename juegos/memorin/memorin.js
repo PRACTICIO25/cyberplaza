@@ -36,24 +36,24 @@ console.log('seg: ',seg.toString().length);
 // TEMPLATES
 const formConfNivelNuevo = `<div id="pantallaConfiguracion" class="pantallaConfiguracion">
                             <button class="pantallaConfiguracion__cerrar" id="cerrar">X</button>
-                            <form action="memorin.html" name="confNivel" class="pantallaConfiguracion__confNivel">
+                            <div action="memorin.html" name="confNivel" class="pantallaConfiguracion__confNivel">
                                 <h3 class="pantallaConfiguracion__titulo">
                                     Nuevo nivel
                                 </h3>
                                 <input type="number" placeholder="Nivel" value="" id="nuevoNivel">
                                 <input type="submit" value="Seleccionar"></input>
-                            </form>
+                            </div>
                             </div>`;
 
 const formConfTiempo = `<div id="pantallaConfiguracion" class="pantallaConfiguracion">
-                        <form action="#" name="confNivel" class="pantallaConfiguracion__confNivel">
+                        <div action="#" name="confNivel" class="pantallaConfiguracion__confNivel">
                             <button class="pantallaConfiguracion__cerrar" id="cerrar">X</button>
                             <h3 class="pantallaConfiguracion__titulo">
                                 Establecer Tiempo
                             </h3>
                             <input type="text" placeholder="Nivel" value="" id="nuevoTiempo">
                             <input type="submit" value="Seleccionar"></input>
-                        </form>
+                        </div>
                         </div>`;
 
 // IMAGENES
@@ -130,27 +130,33 @@ function cantidadNumeros() {
         console.log(e.key);
         switch(e.key) {
             case 'ArrowRight':
-                if(posicion < inputNuevoNivel.value.length) {
+                e.preventDefault()
+                /* if(posicion < inputNuevoNivel.value.length) {
                     posicion += 1;
+                    console.log()
                     console.log('flecha derecha posicion: ', posicion);
-                }
+                } */
                 break
             case 'ArrowLeft':
-                if(inputNuevoNivel.value.length > 0) {
+                e.preventDefault()
+                /* if(inputNuevoNivel.value.length > 0) {
                     posicion = inputNuevoNivel.value.length - 1;
                     console.log('flecha izquierda posicion: ', posicion);
-                }
+                    let prueba = toString(numeroEstablecido)
+                    prueba.substring(posicion)
+                    console.log(prueba)
+                } */
                 break
             case 'Backspace':
                 numeroEstablecido = inputNuevoNivel.value.slice(0, -1);
                 console.log('el numero de nivel nuevo es: ', numeroEstablecido);
                 break
-            case 'Delete':
+            /* case 'Delete':
                 console.log('delete');
                 let stringNumEstablecido = toString(numeroEstablecido);
-                console.log(stringNumEstablecido.indexOf(posicion))
+                console.log(stringNumEstablecido.slice(posicion + 1))
                 console.log(numeroEstablecido)
-                break
+                break */
         }
     })
 }
@@ -235,8 +241,11 @@ btnConfigNuevoNivel.addEventListener('click', () => {
     const btnCerrar = document.getElementById('cerrar');
     cantidadNumeros()
     btnCerrar.addEventListener('click', (e) => {
+        numeroEstablecido = 0;
+        console.log('el numero de nivel nuevo es: ', numeroEstablecido);
         alerta.style.display = 'none';
     })
+    
 })
 
 
