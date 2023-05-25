@@ -41,7 +41,7 @@ const formConfNivelNuevo = `<div id="pantallaConfiguracion" class="pantallaConfi
                                     Nuevo nivel
                                 </h3>
                                 <input type="number" placeholder="Nivel" value="" id="nuevoNivel">
-                                <input type="submit" value="Seleccionar"></input>
+                                <input id="establecer" type="submit" value="Seleccionar"></input>
                             </div>
                             </div>`;
 
@@ -52,7 +52,7 @@ const formConfTiempo = `<div id="pantallaConfiguracion" class="pantallaConfigura
                                 Establecer Tiempo
                             </h3>
                             <input type="text" placeholder="Nivel" value="" id="nuevoTiempo">
-                            <input type="submit" value="Seleccionar"></input>
+                            <input id="establecer" type="submit" value="Seleccionar"></input>
                         </div>
                         </div>`;
 
@@ -239,13 +239,20 @@ btnConfigNuevoNivel.addEventListener('click', () => {
     alerta.innerHTML = formConfNivelNuevo;
     // Botón cerrar configuracion
     const btnCerrar = document.getElementById('cerrar');
+    // Botón establecer cambio en configuración
+    const btnEstablecer = document.getElementById('establecer');
     cantidadNumeros()
     btnCerrar.addEventListener('click', (e) => {
         numeroEstablecido = 0;
         console.log('el numero de nivel nuevo es: ', numeroEstablecido);
         alerta.style.display = 'none';
     })
-    
+    btnEstablecer.addEventListener('click', () => {
+        nivel.innerHTML = numeroEstablecido;
+        numeroEstablecido = 0;
+        alerta.style.display = 'none';
+        cargarImagenes()
+    })
 })
 
 
