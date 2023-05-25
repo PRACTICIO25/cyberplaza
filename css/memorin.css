@@ -10,6 +10,13 @@ body {
     overflow: auto;
     scroll-snap-type: y mandatory;
     scroll-snap-align: start;
+    position: relative;
+}
+
+.alerta {
+    display: none;
+    width: 100%;
+    height: 100%;
 }
 
 .instrucciones {
@@ -198,6 +205,77 @@ body {
     position: fixed;
     width: 100%;
     height: 100vh;
-    background-color: var(--color-alerts);
+    background-color: rgba(255, 255, 255, 0.274);
     top: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.pantallaConfiguracion__cerrar {
+    align-self: flex-end;
+    position: absolute;
+    top: 20%;
+    right: 30%;
+    margin: 1% 2%;
+    width: 3vw;
+    height: 5vh;
+    background-color: rgb(242, 102, 171);
+    color: white;
+    font-size: 12pt;
+    font-weight: bold;
+    border-radius: 8px;
+}
+
+.pantallaConfiguracion__cerrar:hover {
+    border: 2px white solid;
+}
+
+.pantallaConfiguracion__confNivel {
+    width: 40%;
+    height: 60vh;
+    background-color: aliceblue;
+    background-color: var(--color-alerts);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+.pantallaConfiguracion__titulo {
+    font-size: 36pt;
+    color: white;
+    float: 0;
+}
+
+input[type=number] {
+    width: 12vw;
+    height: 8vh;
+    text-align: center;
+    font-size: 18pt;
+    --webkit-appearance: textfield !important;
+    margin: 0;
+    --moz-appearance:textfield !important;
+}
+
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+    }
+
+input[type=submit] {
+    width: 16vw;
+    height: 8vh;
+    background-color: rgb(23, 34, 136);
+    cursor: pointer;
+    border-radius: 15px;
+    color: white;
+    font-weight: bold;
+    font-size: 14pt;
+}
+
+input[type=submit]:hover {
+    background-color: rgb(35, 53, 209);
+    border: 2px white solid;
 }
