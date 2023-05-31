@@ -71,15 +71,34 @@ body {
 .juego__imgContenedor {
     width: 100%;
     height: 100%;
+}
+
+input[type=checkbox] {
+    display: none;
+    appearance: none;
+}
+
+.juego__label {
+    width: 100%;
+    height: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
     background-color: var(--color-secciones);
+    cursor: pointer;
 }
 
-.juego__imgContenedor:hover {
+.juego__label:hover {
     background-color: rgb(19, 30, 126);
 }
+
+input[type=checkbox]:checked + .juego__label {
+    background-color: rgb(31, 126, 19);
+}
+
+/* .juego__checkbox {
+    background-color: aqua;
+} */
 
 .juego__img {
     width: 50%;
@@ -195,6 +214,7 @@ body {
     color: white;
     font-size: 18pt;
     font-weight: bold;
+    cursor: pointer;
 }
 
 .configuracion__btn:hover {
@@ -225,6 +245,7 @@ body {
     font-size: 12pt;
     font-weight: bold;
     border-radius: 8px;
+    cursor: pointer;
 }
 
 .pantallaConfiguracion__cerrar:hover {
@@ -248,7 +269,7 @@ body {
     float: 0;
 }
 
-input[type=number] {
+.pantallaCOnfiguracion__inputs {
     width: 12vw;
     height: 8vh;
     text-align: center;
@@ -258,11 +279,15 @@ input[type=number] {
     --moz-appearance:textfield !important;
 }
 
-input[type=number]::-webkit-inner-spin-button,
-input[type=number]::-webkit-outer-spin-button {
+.pantallaCOnfiguracion__inputs::-webkit-inner-spin-button,
+.pantallaCOnfiguracion__inputs::-webkit-outer-spin-button {
     -webkit-appearance: none;
     margin: 0;
-    }
+}
+
+input[type=text] {
+    width: 60%;
+}
 
 input[type=submit] {
     width: 16vw;

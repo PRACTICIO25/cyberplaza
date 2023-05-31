@@ -16,9 +16,10 @@ const alerta = document.getElementById('alerta');
 // Botón configuración nuevo nivel
 const btnConfigNuevoNivel = document.getElementById('btnConfigNuevoNivel');
 // Botón configuración titulo
-const btnConfigTiempo = document.getElementById('btnConfigTiempo');
+/* const btnConfigTiempo = document.getElementById('btnConfigTiempo'); */
 // Nivel
 const nivel = document.getElementById('nivel');
+
 
 // Variables
 let estadoActual = 0;
@@ -29,6 +30,25 @@ let listaImagenes = [];
 let numerosString = '';
 let numeroEstablecido = 0;
 let posicion = 0;
+// Activar jugar
+let jugarScript = false;
+// Imagenes
+const imagenes = ['./assets/imgJuego/alarm.svg', './assets/imgJuego/american-football.svg',
+                 './assets/imgJuego/analytics.svg', './assets/imgJuego/aperture.svg.svg', 
+                 './assets/imgJuego/archive.svg', './assets/imgJuego/arrow-dropdown-circle.svg',
+                 './assets/imgJuego/arrow-dropdown.svg', './assets/imgJuego/arrow-dropleft-circle.svg',
+                 './assets/imgJuego/arrow-dropleft.svg', './assets/imgJuego/arrow-dropright-circle.svg',
+                 './assets/imgJuego/arrow-dropright.svg', './assets/imgJuego/arrow-dropup-circle.svg',
+                 './assets/imgJuego/arrow-dropup.svg', './assets/imgJuego/avion.svg',
+                 './assets/imgJuego/baseball.svg', './assets/imgJuego/basket.svg',
+                 './assets/imgJuego/basketball.svg', './assets/imgJuego/bed.svg',
+                 './assets/imgJuego/beer.svg', './assets/imgJuego/bicycle.svg',
+                 './assets/imgJuego/boat.svg', './assets/imgJuego/bug.svg',
+                 './assets/imgJuego/build.svg', './assets/imgJuego/bulb.svg',
+                 './assets/imgJuego/bus.svg', './assets/imgJuego/cafe.svg',
+                 './assets/imgJuego/call.svg', './assets/imgJuego/camera.svg',
+                 './assets/imgJuego/car.svg', './assets/imgJuego/cloudy-night.svg',
+                 './assets/imgJuego/cloudy.svg', './assets/imgJuego/color-palette.svg']
 
 console.log('min: ',min.toString().length);
 console.log('seg: ',seg.toString().length);
@@ -36,29 +56,29 @@ console.log('seg: ',seg.toString().length);
 // TEMPLATES
 const formConfNivelNuevo = `<div id="pantallaConfiguracion" class="pantallaConfiguracion">
                             <button class="pantallaConfiguracion__cerrar" id="cerrar">X</button>
-                            <div action="memorin.html" name="confNivel" class="pantallaConfiguracion__confNivel">
+                            <div name="confNivel" class="pantallaConfiguracion__confNivel">
                                 <h3 class="pantallaConfiguracion__titulo">
                                     Nuevo nivel
                                 </h3>
-                                <input type="number" placeholder="Nivel" value="" id="nuevoNivel">
+                                <input class="pantallaCOnfiguracion__inputs" type="number" placeholder="Nivel" value="" id="nuevoNivel">
                                 <input id="establecer" type="submit" value="Seleccionar"></input>
                             </div>
                             </div>`;
 
 const formConfTiempo = `<div id="pantallaConfiguracion" class="pantallaConfiguracion">
-                        <div action="#" name="confNivel" class="pantallaConfiguracion__confNivel">
+                        <div name="confNivel" class="pantallaConfiguracion__confNivel">
                             <button class="pantallaConfiguracion__cerrar" id="cerrar">X</button>
                             <h3 class="pantallaConfiguracion__titulo">
                                 Establecer Tiempo
                             </h3>
-                            <input type="text" placeholder="Nivel" value="" id="nuevoTiempo">
+                            <input class="pantallaCOnfiguracion__inputs" type="text" placeholder="Nuevo Tiempo 00:00" value="" id="nuevoTiempo">
                             <input id="establecer" type="submit" value="Seleccionar"></input>
                         </div>
                         </div>`;
 
 // IMAGENES
 // Imagenes por niveles
-class imagen {
+class Imagen {
     constructor (ruta) {
         this.ruta = ruta;
     }
@@ -68,60 +88,100 @@ const interrogacion = './assets/signoInterrogacion1.svg';
 
 //CONFIGURACIONES DEFAULT
 nivel.innerHTML = 1;
-cargarImagenes();
+cargarImagenes(parseInt(nivel.innerHTML));
 
 // FUNCIONES
+// Elecciones aleatorias
+function aleatorio(min,max) {
+    return ((Math.floor(Math.random() * max - min + 1) + min))
+}
 // cargarImagenes
 // cantidad es la cantidad de cartas
-function cargarImagenes(nivel=8){
+function cargarImagenes(nivel){
+    function buscar1(lista,img,image) {
+        while(lista.includes(img)) {
+            if(image === 0) {
+                cont++
+                if(cont < 3) {
+                    return;
+                }
+            }
+            console.log('loop');
+            img = image[aleatorio(0,image.length)];
+        }
+    }
     console.log('nivel: ',nivel);
-
+    tablero.innerHTML = '';
+    let imgs = [];
+    let cont = 0;
     for (let img1 = 0; img1 < nivel * 2; img1++) {
+        let img = '';
         if(nivel * 2 < 5) {
             tablero.style = `grid-template-columns: repeat(${nivel * 2},1fr);`
         }
         else {
             tablero.style = `grid-template-columns: repeat(4,1fr);
-                            overflow-y: scroll;`
+                            overflow-y: scroll;`;
         }
-        console.log(contenedorImagenes)
-        tablero.innerHTML += `<div class="juego__imgContenedor">
-                                <img src="${interrogacion}" alt="" class="juego__img">
+        console.log(contenedorImagenes);
+        console.log(imagenes.length);
+        if(img1 < nivel) {
+            img = imagenes[aleatorio(0,imagenes.length - 1)];
+            buscar1(imgs,img,imagenes);
+            imgs.push(img);
+            console.log(imgs);
+            console.log('imagen aleatoria: ', img);
+            console.log(imagenes.length);
+            console.log(imagenes[aleatorio(0,imagenes.length)]);
+        }
+        else {
+            console.log('aca debe de crear nueva lista')
+            for(x=0; x<4; x++) {
+                img = imgs[aleatorio(0,imgs.length -1)];
+                buscar1(imgs,img,0);
+                console.log(img)
+            }
+        }
+        tablero.innerHTML += //html 
+                            `<div class="juego__imgContenedor">
+                                <input id="card" type="checkbox" class="juego__checkbox">
+                                <label class="juego__label" for="card">
+                                    <img src="${imgs[imgs.length - 1]}" alt="" class="juego__img">
+                                </label>
                             </div>`;
     }  
 }
 //////////////////////////////////////
 // cantidad de numeros en el input number
-function cantidadNumeros() {
-    console.log('entra')
-    const inputNuevoNivel = document.getElementById('nuevoNivel');
-    inputNuevoNivel.addEventListener('keypress', (k) => {
+function cantidadNumeros(btn) {
+    console.log('entra');
+    btn.addEventListener('keypress', (k) => {
         k.preventDefault()
         console.log(parseInt(k.key))
         console.log(k)
         if(parseInt(k.key)) {
             console.log('parseint: ', k.key);
             numerosString = k.key;
-            console.log(inputNuevoNivel.value)
+            console.log(btn.value)
             console.log(numerosString.length, 'length')
-            if(inputNuevoNivel.value.length > 3) {
+            if(btn.value.length > 3) {
                 console.log('el numero de nivel nuevo es: ', numeroEstablecido)
                 return
             }
 
-            if(inputNuevoNivel.value.length < 3) {
+            if(btn.value.length < 3) {
                 console.log('pasa menor de 3')
-                inputNuevoNivel.value += numerosString;
-                console.log(inputNuevoNivel.value.length)
-                numeroEstablecido = parseInt(inputNuevoNivel.value)
+                btn.value += numerosString;
+                console.log(btn.value.length)
+                numeroEstablecido = parseInt(btn.value)
                 console.log('el numero de nivel nuevo es: ', numeroEstablecido)
                 return
             }
-            if(inputNuevoNivel.value.length === 3) {
+            if(btn.value.length === 3) {
                 console.log('pasa igual a 2')
-                numeroEstablecido = parseInt(inputNuevoNivel.value);
+                numeroEstablecido = parseInt(btn.value);
                 console.log('el numero de nivel nuevo es: ', numeroEstablecido)
-                inputNuevoNivel.value = numeroEstablecido;
+                btn.value = numeroEstablecido;
                 return
             }
         }
@@ -131,7 +191,7 @@ function cantidadNumeros() {
         switch(e.key) {
             case 'ArrowRight':
                 e.preventDefault()
-                /* if(posicion < inputNuevoNivel.value.length) {
+                /* if(posicion < btn.value.length) {
                     posicion += 1;
                     console.log()
                     console.log('flecha derecha posicion: ', posicion);
@@ -139,8 +199,8 @@ function cantidadNumeros() {
                 break
             case 'ArrowLeft':
                 e.preventDefault()
-                /* if(inputNuevoNivel.value.length > 0) {
-                    posicion = inputNuevoNivel.value.length - 1;
+                /* if(btn.value.length > 0) {
+                    posicion = btn.value.length - 1;
                     console.log('flecha izquierda posicion: ', posicion);
                     let prueba = toString(numeroEstablecido)
                     prueba.substring(posicion)
@@ -148,7 +208,7 @@ function cantidadNumeros() {
                 } */
                 break
             case 'Backspace':
-                numeroEstablecido = inputNuevoNivel.value.slice(0, -1);
+                numeroEstablecido = btn.value.slice(0, -1);
                 console.log('el numero de nivel nuevo es: ', numeroEstablecido);
                 break
             /* case 'Delete':
@@ -209,6 +269,31 @@ function relojPlay(estado) {
         return
     }
 };
+////////////////////////////////////
+// Alerta
+function mostrarAlerta(alert, btn) {
+    alerta.style.display = 'flex';
+    alerta.innerHTML = alert;
+    // Botón cerrar configuracion
+    const btnCerrar = document.getElementById('cerrar');
+    // Botón establecer cambio en configuración
+    const btnEstablecer = document.getElementById('establecer');
+    cantidadNumeros(btn)
+    btnCerrar.addEventListener('click', (e) => {
+        numeroEstablecido = 0;
+        console.log('el numero de nivel nuevo es: ', numeroEstablecido);
+        alerta.style.display = 'none';
+    })
+    btnEstablecer.addEventListener('click', () => {
+        const nuevoNivel = document.getElementById('nuevoNivel').value;
+        nivel.innerHTML = nuevoNivel;
+        console.log('numero establecido mod: ', nuevoNivel)
+        alerta.style.display = 'none';
+        cargarImagenes(nuevoNivel);
+        numeroEstablecido = 0;
+        console.log('juemadre')
+    })
+}
 
 /////////////////////////////////
 // Juego
@@ -221,6 +306,7 @@ function iniciarJuego() {
 
 jugar.addEventListener('click', (e) => {
     estadoActual = 0;
+    jugar.style = 'background-color: gray; cursor: default;';
     jugar.disabled = true;
     relojPlay(1);
     iniciarJuego();
@@ -229,31 +315,20 @@ jugar.addEventListener('click', (e) => {
 reiniciar.addEventListener('click', (e) => {
     estadoActual = 1;
     clearInterval(contSeg);
+    jugar.style = 'rgb(164, 89, 209);'
     reiniciar.disabled = true;
     jugar.disabled = false;
     relojPlay(0);
 })
 
 btnConfigNuevoNivel.addEventListener('click', () => {
-    alerta.style.display = 'flex';
-    alerta.innerHTML = formConfNivelNuevo;
-    // Botón cerrar configuracion
-    const btnCerrar = document.getElementById('cerrar');
-    // Botón establecer cambio en configuración
-    const btnEstablecer = document.getElementById('establecer');
-    cantidadNumeros()
-    btnCerrar.addEventListener('click', (e) => {
-        numeroEstablecido = 0;
-        console.log('el numero de nivel nuevo es: ', numeroEstablecido);
-        alerta.style.display = 'none';
-    })
-    btnEstablecer.addEventListener('click', () => {
-        nivel.innerHTML = numeroEstablecido;
-        numeroEstablecido = 0;
-        alerta.style.display = 'none';
-        cargarImagenes()
-    })
+    const btnConfigNuevoNivel = document.getElementById('btnConfigNuevoNivel');
+    mostrarAlerta(formConfNivelNuevo, btnConfigNuevoNivel);
 })
 
+btnConfigTiempo.addEventListener('click', () => {
+    const btnConfigTiempo = document.getElementById('btnConfigTiempo');
+    mostrarAlerta(formConfTiempo, btnConfigTiempo);
+})
 
 
